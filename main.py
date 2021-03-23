@@ -1,10 +1,10 @@
-import win32gui, win32con, pyautogui, logging, pymsgbox, sys
+import win32gui, win32con, pyautogui, logging, pymsgbox, sys, json
 from time import sleep
 
 
 # CONFIG
-LOG_MESSAGE_FORMAT = '[%(asctime)s] %(levelname)s - %(message)s' #'[%(asctime)s] %(levelname)s: %(message)8s'
-LOG_DATE_FORMAT = '%H:%M:%S' #%Y-%m-%d
+LOG_MESSAGE_FORMAT = '[%(asctime)s] %(levelname)s - %(message)s'
+LOG_DATE_FORMAT = '%H:%M:%S'
 DEFAULT_DELAY = 0.2
 MOUSE_MOVEMENT_TIME = 0.25
 SHIP_ALIGN_TIME = 4.79
@@ -18,78 +18,12 @@ logging.basicConfig(format=LOG_MESSAGE_FORMAT, datefmt=LOG_DATE_FORMAT, level=lo
 # Set pause after pyautogui action
 pyautogui.PAUSE=DEFAULT_DELAY
 
-RESOURCES = {
-    'quit_game': {
-        'name': 'quit_game',
-        'path': './res/quit_game.png',
-        'path_alt': None,
-        'confidence': 0.9
-    },
-    'undock': {
-        'name': 'undock',
-        'path': './res/undock.png',
-        'path_alt': None,
-        'confidence': 0.9
-    },
-    'inventory': {
-        'name': 'inventory',
-        'path': './res/inventory.png',
-        'path_alt': None,
-        'confidence': 0.9
-    },
-    'ore_hold': {
-        'name': '',
-        'path': './res/ore_hold.png',
-        'path_alt': './res/ore_hold_alt.png',
-        'confidence': 0.9
-    },
-    'search': {
-        'name': 'search',
-        'path': './res/search.png',
-        'path_alt': None,
-        'confidence': 0.9
-    },
-    'overview': {
-        'name': 'overview',
-        'path': './res/overview.png',
-        'path_alt': './res/overview_alt.png',
-        'confidence': 0.9
-    },
-    'people_and_places': {
-        'name': 'people_and_places',
-        'path': './res/people_and_places.png',
-        'path_alt': './res/people_and_places_alt.png',
-        'confidence': 0.9
-    },
-    'asteroid_belt_1': {
-        'name': 'asteroid_belt_1',
-        'path': './res/asteroid_belt_1.png',
-        'path_alt': None,
-        'confidence': 0.9
-    },
-    'asteroid_belt': {
-        'name': 'asteroid_belt',
-        'path': './res/asteroid_belt.png',
-        'path_alt': None,
-        'confidence': 0.8
-    },
-    'warp_to_zero': {
-        'name': 'warp_to_zero',
-        'path': './res/warp_to_zero.png',
-        'path_alt': './res/warp_to_zero_alt.png',
-        'confidence': 0.9
-    },
-    'warping': {
-        'name': 'warping',
-        'path': './res/warping.png',
-        'path_alt': None,
-        'confidence': 0.8
-    },
+with open('resources.json') as file:
+    RESOURCES = json.load(file)
 
-}
 
 def main():
-    pilot_name = pymsgbox.prompt(text='Podaj nazwę pilota', title=APP_NAME , default='Typowy Noob')
+    pilot_name = pymsgbox.prompt(text='Podaj nazwę pilota', title=APP_NAME , default='Astrid Dirtsa')
     if pilot_name:
 
         pilot = Pilot(pilot_name)
@@ -108,7 +42,7 @@ def main():
                 # freeze when game settings is open
                 if pilot.locate('quit_game'):
                     confirm = pymsgbox.confirm(text='Wszedłeś w ustawienia gry, zawiesiłem bota.', title=APP_NAME, buttons=['Wznów', 'Przerwij'])
-                    if confirm == 'Przerwij': break
+
 
                 if ship.is_on_station():
                     if ship.is_inventory_full():
@@ -185,15 +119,15 @@ class Pilot(object):
 
     def undock(self):
         self.last_action = 'undock'
-        self.pilot.click('undock')
+        self.click('undock')
 
 
 
 
     def locate(self, obj):
-        localization = pyautogui.locateOnScreen(RESOURCES[obj]['path'], RESOURCES[obj]['confidence'])
+        localization = pyautogui.locateOnScreen(RESOURCES[obj]['path'], confidence=RESOURCES[obj]['confidence'])
         if not localization and RESOURCES[obj]['path_alt']:
-            localization = pyautogui.locateOnScreen(RESOURCES[obj]['path_alt'], RESOURCES[obj]['confidence'])
+            localization = pyautogui.locateOnScreen(RESOURCES[obj]['path_alt'], confidence=RESOURCES[obj]['confidence'])
         return localization
 
 
@@ -261,5 +195,7 @@ class Game(object):
 
 
 if __name__ == '__main__':
-    main()
+   main()
+
+
 

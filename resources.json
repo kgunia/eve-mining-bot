@@ -1,0 +1,80 @@
+{
+  "quit_game": {
+    "name": "quit_game",
+    "path": "./res/quit_game.png",
+    "path_alt": null,
+    "confidence": 0.9
+  },
+  "undock": {
+    "name": "undock",
+    "path": "./res/undock.png",
+    "path_alt": null,
+    "confidence": 0.9
+  },
+  "inventory": {
+    "name": "inventory",
+    "path": "./res/inventory.png",
+    "path_alt": null,
+    "confidence": 0.9
+  },
+  "ore_hold": {
+    "name": "",
+    "path": "./res/ore_hold.png",
+    "path_alt": "./res/ore_hold_alt.png",
+    "confidence": 0.9
+  },
+  "search": {
+    "name": "search",
+    "path": "./res/search.png",
+    "path_alt": null,
+    "confidence": 0.9
+  },
+  "overview": {
+    "name": "overview",
+    "path": "./res/overview.png",
+    "path_alt": "./res/overview_alt.png",
+    "confidence": 0.9
+  },
+  "people_and_places": {
+    "name": "people_and_places",
+    "path": "./res/people_and_places.png",
+    "path_alt": "./res/people_and_places_alt.png",
+    "confidence": 0.9
+  },
+  "asteroid_belt_1": {
+    "name": "asteroid_belt_1",
+    "path": "./res/asteroid_belt_1.png",
+    "path_alt": null,
+    "confidence": 0.9
+  },
+  "asteroid_belt": {
+    "name": "asteroid_belt",
+    "path": "./res/asteroid_belt.png",
+    "path_alt": null,
+    "confidence": 0.8
+  },
+  "warp_to_zero": {
+    "name": "warp_to_zero",
+    "path": "./res/warp_to_zero.png",
+    "path_alt": "./res/warp_to_zero_alt.png",
+    "confidence": 0.9
+  },
+  "warping": {
+    "name": "warping",
+    "path": "./res/warping.png",
+    "path_alt": null,
+    "confidence": 0.9
+  },
+  "system_info_inactive": {
+    "name": "system_info_inactive",
+    "path": "./res/system_info_inactive.png",
+    "path_alt": null,
+    "confidence": 1
+  },
+  "system_info_active": {
+    "name": "system_info_active",
+    "path": "./res/system_info_active.png",
+    "path_alt": null,
+    "confidence": 1
+  }
+}
