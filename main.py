@@ -1,11 +1,5 @@
-from typing import Optional
-
 import win32gui, win32con, pyautogui, logging, pymsgbox, sys
-
 from time import sleep
-from lib.user import *
-from lib.gamewindow import *
-from lib.interfaceobject import *
 
 
 # CONFIG
