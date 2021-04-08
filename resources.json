@@ -154,5 +154,11 @@
     "path": "./res/dock.png",
     "path_alt": null,
     "confidence": 0.9
+  },
+  "corp_chat": {
+    "name": "corp_chat",
+    "path": "./res/corp_chat.png",
+    "path_alt": null,
+    "confidence": 0.9
   }
 }
