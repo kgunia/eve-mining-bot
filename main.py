@@ -47,6 +47,7 @@ def main():
             if confirm == 'Przerwij': break
 
         if ship.is_on_station():
+            sleep(1)
             if ship.is_inventory_full():
                 pilot.unload_cargo()
             else:
@@ -55,7 +56,7 @@ def main():
         elif ship.is_warping():
             sleep(10)
         elif ship.is_in_space():
-            if not pilot.last_action and ship.is_inventory_full():
+            if not pilot.last_action or ship.is_inventory_full():
                 if ship.is_drones_in_space():
                     pilot.return_drones()
                 else:
