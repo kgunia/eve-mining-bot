@@ -20,7 +20,13 @@
   "ore_hold": {
     "name": "",
     "path": "./res/ore_hold.png",
-    "path_alt": "./res/ore_hold_alt.png",
+    "path_alt": null,
+    "confidence": 0.9
+  },
+  "ore_hold_active": {
+    "name": "",
+    "path": "./res/ore_hold_active.png",
+    "path_alt": null,
     "confidence": 0.9
   },
   "search": {
@@ -32,7 +38,7 @@
   "overview": {
     "name": "overview",
     "path": "./res/overview.png",
-    "path_alt": "./res/overview_alt.png",
+    "path_alt": null,
     "confidence": 0.9
   },
   "people_and_places": {
@@ -76,5 +82,77 @@
     "path": "./res/system_info_active.png",
     "path_alt": null,
     "confidence": 1
+  },
+  "drones_in_local_space": {
+    "name": "drones_in_local_space",
+    "path": "./res/drones_in_local_space.png",
+    "path_alt": null,
+    "confidence": 0.9
+  },
+  "drones_in_bay": {
+    "name": "drones_in_bay",
+    "path": "./res/drones_in_bay.png",
+    "path_alt": null,
+    "confidence": 0.9
+  },
+  "launch_drones": {
+    "name": "launch_drones",
+    "path": "./res/launch_drones.png",
+    "path_alt": null,
+    "confidence": 0.9
+  },
+  "return_to_drone_bay": {
+    "name": "return_to_drone_bay",
+    "path": "./res/return_to_drone_bay.png",
+    "path_alt": null,
+    "confidence": 0.9
+  },
+  "fighting": {
+    "name": "fighting",
+    "path": "./res/fighting.png",
+    "path_alt": null,
+    "confidence": 0.9
+  },
+  "idle": {
+    "name": "idle",
+    "path": "./res/idle.png",
+    "path_alt": null,
+    "confidence": 0.9
+  },
+  "miner": {
+    "name": "miner",
+    "path": "./res/miner.png",
+    "path_alt": null,
+    "confidence": 0.9
+  },
+  "progress_bar": {
+    "name": "progress_bar",
+    "path": "./res/progress_bar.png",
+    "path_alt": null,
+    "confidence": 0.9
+  },
+  "item_hangar": {
+    "name": "item_hangar",
+    "path": "./res/item_hangar.png",
+    "path_alt": null,
+    "confidence": 0.9
+  },
+  "asteroid": {
+    "name": "asteroid",
+    "path": "./res/asteroid.png",
+    "path_alt": null,
+    "confidence": 0.9
+  },
+  "station": {
+    "name": "station",
+    "path": "./res/station.png",
+    "path_alt": null,
+    "confidence": 0.9
+  },
+  "dock": {
+    "name": "dock",
+    "path": "./res/dock.png",
+    "path_alt": null,
+    "confidence": 0.9
   }
 }

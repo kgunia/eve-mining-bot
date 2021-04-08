@@ -23,7 +23,7 @@ with open('resources.json') as file:
 
 
 def main():
-    pilot_name = pymsgbox.prompt(text='Podaj nazwę pilota', title=APP_NAME , default='Astrid Dirtsa')
+    pilot_name = pymsgbox.prompt(text='Podaj nazwę pilota', title=APP_NAME , default='Typowy Noob')
     if pilot_name:
 
         pilot = Pilot(pilot_name)
@@ -34,42 +34,57 @@ def main():
         pymsgbox.alert(text='Nie podałeś nazwy pilota! Zamykam aplikację.', title=APP_NAME, button='OK')
         sys.exit(1)
 
-    while True:
-        # sleep(DEFAULT_DELAY)
-        if game.is_running():
-            game.set_foreground()
-            if game.is_the_right_position():
-                # freeze when game settings is open
-                if pilot.locate('quit_game'):
-                    confirm = pymsgbox.confirm(text='Wszedłeś w ustawienia gry, zawiesiłem bota.', title=APP_NAME, buttons=['Wznów', 'Przerwij'])
+    while game.is_running():
 
+        game.set_foreground()
+        if game.is_the_right_position():
+            # freeze when game settings is open
+            if pilot.locate('quit_game'):
+                confirm = pymsgbox.confirm(text='Wszedłeś w ustawienia gry, zawiesiłem bota.', title=APP_NAME, buttons=['Wznów', 'Przerwij'])
+                if confirm == 'Przerwij': break
 
-                if ship.is_on_station():
-                    if ship.is_inventory_full():
-                        logging.info("# TODO opróżnij inventory")
+            if ship.is_on_station():
+                if ship.is_inventory_full():
+                    pilot.unload_cargo()
+                else:
+                    pilot.undock()
+            elif ship.is_warping():
+                sleep(10)
+            elif ship.is_in_space():
+                if not pilot.last_action or ship.is_inventory_full():
+                    if ship.is_drones_in_space():
+                        pilot.return_drones()
                     else:
-                        pilot.undock()
-                elif ship.is_warping():
-                    print('WARPING!!!!!!!!!!!!!!!')
-                    sleep(10)
-                elif ship.is_in_space():
-                    if not pilot.last_action and ship.is_inventory_full():
-                        logging.info("# TODO leć na stację")
-                    elif ship.is_on_asteroid_belt():
-                         logging.info("# TODO zacznij kopać")
+                        pilot.dock_to_station()
+                elif ship.is_on_asteroid_belt():
+                    if not ship.is_drones_in_space():
+                        pilot.launch_drones()
+                    elif not ship.afterburner:
+                        pilot.launch_afterburner(ship)
                     else:
-                        pilot.warp_to_asteroid_belt()
+                        if ship.is_digging():
+                            sleep(60)
+                        else:
+                            pyautogui.press('f1')
+                            pyautogui.press('f2')
+                            pyautogui.keyDown('q')
+                            pilot.click('asteroid')
+                            pyautogui.keyUp('q')
+                            pyautogui.move(0,-20)
+                            sleep(3)
+                else:
+                    logging.info("# Warp to asteroid Belt")
+                    pilot.warp_to_asteroid_belt()
+            sleep(1)
+        else: game.move_to_the_right_side(DEFAULT_DELAY)
 
-                    # else:
-                    #     print('leć na pas asteroid')
+    pymsgbox.alert(text='Gra jest wyłączona. Uruchom grę zanim włączysz bota.', title='EVE Mining Bot', button='OK')
 
-            else: game.move_to_the_right_side(DEFAULT_DELAY)
-        else:
-            pymsgbox.alert(text='Gra jest wyłączona. Uruchom grę zanim włączysz bota.', title='EVE Mining Bot', button='OK')
-            break
 
 class Ship(object):
     on_station = None
+    drones_in_space = False
+    afterburner = False
 
     def __init__(self, pilot):
         self.pilot = pilot
@@ -94,6 +109,14 @@ class Ship(object):
     def is_warping(self):
         self.warping = self.pilot.locate('warping')
         return self.warping
+    
+    def is_drones_in_space(self):
+        self.drones_in_space = True if self.pilot.locate('idle') or self.pilot.locate('fighting') else False
+        return self.drones_in_space
+
+    def is_digging(self):
+        self.digging = True if self.pilot.locate('miner') else False
+        return self.digging
 
 class Pilot(object):
 
@@ -103,25 +126,77 @@ class Pilot(object):
 
     def check_inventory(self):
         self.last_action = 'check-inventory'
-        logging.debug("pilot.check_inventory")
-        if self.click('inventory') and self.click('ore_hold'):
+        logging.info("pilot.check_inventory")
+
+        if self.locate('inventory'):
+            #and self.locate('ore_hold'):
             return self.match('search')
         else:
             pymsgbox.alert(text="Nie mogę sprawdzić ivnentory. Sprawdź interface", title=APP_NAME, button="OK")
 
+    def launch_drones(self):
+        self.last_action = 'launch-drones'
+        logging.info('pilot.launch_drones')
+        self.click('drones_in_bay', 'right')
+        self.click('launch_drones')
+
+    def return_drones(self):
+        self.last_action = 'return-drones'
+        logging.info('pilot.return_drones')
+        self.click('drones_in_local_space', 'right')
+        self.click('return_to_drone_bay')
+
+    def launch_afterburner(self,ship):
+        self.launch_afterburner = 'launch_afterburner'
+        logging.info('pilot.launch_afterburner')
+        pyautogui.keyDown('alt')
+        pyautogui.keyDown('f1')
+        pyautogui.keyUp('f1')
+        pyautogui.keyUp('alt')
+        ship.afterburner = True
+
+
+    def unload_cargo(self):
+        self.last_action = 'unload_cargo'
+        logging.info('pilot.unload_cargo')
+
+        progress_bar = self.locate('progress_bar')
+        position = pyautogui.center(progress_bar)
+        pyautogui.moveTo(position.x + 50, position.y + 50, MOUSE_MOVEMENT_TIME, pyautogui.easeOutQuad)
+        pyautogui.click()
+        pyautogui.keyDown('ctrl')
+        pyautogui.keyDown('a')
+        pyautogui.keyUp('a')
+        pyautogui.keyUp('ctrl')
+        item_hangar = self.locate('item_hangar')
+        position = pyautogui.center(item_hangar)
+        pyautogui.mouseDown()
+        pyautogui.moveTo(position.x, position.y, MOUSE_MOVEMENT_TIME, pyautogui.easeOutQuad)
+        pyautogui.mouseUp()
+
+
     def warp_to_asteroid_belt(self):
         self.last_action = 'warp-to-asteroid-belt'
         logging.debug("pilot.warp_to_asteroid_belt")
-        self.click('people_and_places')
-        self.click('asteroid_belt', 'right')
-        self.click('warp_to_zero')
-        sleep(SHIP_ALIGN_TIME)
+        if self.locate('people_and_places'):
+            if self.click('asteroid_belt', 'right'):
+                if self.click('warp_to_zero'):
+                    sleep(SHIP_ALIGN_TIME)
+        else: pymsgbox.alert(text="Nie mogę znaleźć people & places. Sprawdź interface", title=APP_NAME, button="OK")
+
+    def dock_to_station(self):
+        self.last_action = 'dock_to_station'
+        logging.debug("pilot.dock_to_station")
+        if self.locate('people_and_places'):
+            if self.click('station', 'right'):
+                if self.click('dock'):
+                    sleep(SHIP_ALIGN_TIME)
+        else: pymsgbox.alert(text="Nie mogę znaleźć people & places. Sprawdź interface", title=APP_NAME, button="OK")
+
 
     def undock(self):
         self.last_action = 'undock'
         self.click('undock')
-
-
 
 
     def locate(self, obj):
@@ -154,6 +229,8 @@ class Pilot(object):
                 color = (6, 74, 95)
                 tolerance = 20
                 return pyautogui.pixelMatchesColor(int(x), int(y), color, tolerance=tolerance)
+
+
 
 
 
@@ -195,7 +272,66 @@ class Game(object):
 
 
 if __name__ == '__main__':
-   main()
+    main()
+
+
+    # salvaging()
+    # clean_inventory()
+
+    def salvaging():
+        sleep(3)
+
+        while pyautogui.locateOnScreen('wreck.png'):
+            while pyautogui.locateOnScreen('salvager.png'):
+                print('ciągle zbiera')
+                sleep(1)
+
+            wrecks = pyautogui.locateAllOnScreen('wreck.png')
+            wreck_list = []
+            loop = 0
+            for wreck in wrecks:
+                if loop > 3 : break
+                wreck_list.append(wreck)
+                loop += 1
+
+            for wreck in wreck_list:
+                position = pyautogui.center(wreck)
+                pyautogui.moveTo(position.x, position.y, MOUSE_MOVEMENT_TIME, pyautogui.easeOutQuad)
+                pyautogui.keyDown('ctrl')
+                pyautogui.click()
+                pyautogui.keyUp('ctrl')
+            sleep(3)
+
+            loop = 0
+            for wreck in wreck_list:
+                position = pyautogui.center(wreck)
+                pyautogui.moveTo(position.x, position.y, MOUSE_MOVEMENT_TIME, pyautogui.easeOutQuad)
+                pyautogui.click()
+                pyautogui.press(f'f{loop+1}')
+                loop += 1
+
+            pyautogui.move(-50,0)
+
+
+
+
+    def clean_inventory():
+        progress_bar = pyautogui.locateOnScreen('progress_bar.png')
+        position = pyautogui.center(progress_bar)
+        pyautogui.moveTo(position.x+50, position.y+50, MOUSE_MOVEMENT_TIME, pyautogui.easeOutQuad)
+        pyautogui.click()
+        pyautogui.keyDown('ctrl')
+        pyautogui.keyDown('a')
+        pyautogui.keyUp('a')
+        pyautogui.keyUp('ctrl')
+        item_hangar = pyautogui.locateOnScreen('item_hangar.png')
+        position = pyautogui.center(item_hangar)
+        pyautogui.mouseDown()
+        pyautogui.moveTo(position.x, position.y, MOUSE_MOVEMENT_TIME, pyautogui.easeOutQuad)
+        pyautogui.mouseUp()
+
+
+
 
 
 
