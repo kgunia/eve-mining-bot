@@ -3,162 +3,343 @@
     "name": "quit_game",
     "path": "./res/quit_game.png",
     "path_alt": null,
-    "confidence": 0.9
+    "confidence": 0.9,
+    "grayscale": false
   },
   "undock": {
     "name": "undock",
     "path": "./res/undock.png",
     "path_alt": null,
-    "confidence": 0.9
+    "confidence": 0.9,
+    "grayscale": false
   },
   "inventory": {
     "name": "inventory",
     "path": "./res/inventory.png",
     "path_alt": null,
-    "confidence": 0.9
+    "confidence": 0.9,
+    "grayscale": false
   },
   "ore_hold": {
     "name": "",
     "path": "./res/ore_hold.png",
     "path_alt": null,
-    "confidence": 0.9
+    "confidence": 0.9,
+    "grayscale": false
   },
   "ore_hold_active": {
     "name": "",
     "path": "./res/ore_hold_active.png",
     "path_alt": null,
-    "confidence": 0.9
+    "confidence": 0.9,
+    "grayscale": false
   },
   "search": {
     "name": "search",
     "path": "./res/search.png",
     "path_alt": null,
-    "confidence": 0.9
+    "confidence": 0.9,
+    "grayscale": false
   },
   "overview": {
     "name": "overview",
     "path": "./res/overview.png",
     "path_alt": null,
-    "confidence": 0.9
+    "confidence": 0.9,
+    "grayscale": false
   },
   "people_and_places": {
     "name": "people_and_places",
     "path": "./res/people_and_places.png",
     "path_alt": "./res/people_and_places_alt.png",
-    "confidence": 0.9
+    "confidence": 0.9,
+    "grayscale": false
   },
   "asteroid_belt_1": {
     "name": "asteroid_belt_1",
     "path": "./res/asteroid_belt_1.png",
     "path_alt": null,
-    "confidence": 0.9
+    "confidence": 0.9,
+    "grayscale": false
   },
   "asteroid_belt": {
     "name": "asteroid_belt",
     "path": "./res/asteroid_belt.png",
     "path_alt": null,
-    "confidence": 0.8
+    "confidence": 0.99,
+    "grayscale": false
   },
   "warp_to_zero": {
     "name": "warp_to_zero",
     "path": "./res/warp_to_zero.png",
     "path_alt": "./res/warp_to_zero_alt.png",
-    "confidence": 0.9
+    "confidence": 0.9,
+    "grayscale": false
   },
   "warping": {
     "name": "warping",
     "path": "./res/warping.png",
-    "path_alt": null,
-    "confidence": 0.9
+    "path_alt": "./res/warping_alt.png",
+    "confidence": 0.9,
+    "grayscale": false
   },
   "system_info_inactive": {
     "name": "system_info_inactive",
     "path": "./res/system_info_inactive.png",
     "path_alt": null,
-    "confidence": 1
+    "confidence": 1,
+    "grayscale": false
   },
   "system_info_active": {
     "name": "system_info_active",
     "path": "./res/system_info_active.png",
     "path_alt": null,
-    "confidence": 1
+    "confidence": 1,
+    "grayscale": false
   },
   "drones_in_local_space": {
     "name": "drones_in_local_space",
     "path": "./res/drones_in_local_space.png",
     "path_alt": null,
-    "confidence": 0.9
+    "confidence": 0.9,
+    "grayscale": false
   },
   "drones_in_bay": {
     "name": "drones_in_bay",
     "path": "./res/drones_in_bay.png",
     "path_alt": null,
-    "confidence": 0.9
+    "confidence": 0.9,
+    "grayscale": false
   },
   "launch_drones": {
     "name": "launch_drones",
     "path": "./res/launch_drones.png",
     "path_alt": null,
-    "confidence": 0.9
+    "confidence": 0.9,
+    "grayscale": false
   },
   "return_to_drone_bay": {
     "name": "return_to_drone_bay",
     "path": "./res/return_to_drone_bay.png",
     "path_alt": null,
-    "confidence": 0.9
+    "confidence": 0.9,
+    "grayscale": false
   },
   "fighting": {
     "name": "fighting",
     "path": "./res/fighting.png",
     "path_alt": null,
-    "confidence": 0.9
+    "confidence": 0.9,
+    "grayscale": false
   },
   "idle": {
     "name": "idle",
     "path": "./res/idle.png",
     "path_alt": null,
-    "confidence": 0.9
+    "confidence": 0.9,
+    "grayscale": false
   },
   "miner": {
     "name": "miner",
     "path": "./res/miner.png",
     "path_alt": null,
-    "confidence": 0.9
+    "confidence": 0.9,
+    "grayscale": false
   },
   "progress_bar": {
     "name": "progress_bar",
     "path": "./res/progress_bar.png",
     "path_alt": null,
-    "confidence": 0.9
+    "confidence": 0.9,
+    "grayscale": false
   },
   "item_hangar": {
     "name": "item_hangar",
     "path": "./res/item_hangar.png",
     "path_alt": null,
-    "confidence": 0.9
+    "confidence": 0.9,
+    "grayscale": false
   },
   "asteroid": {
     "name": "asteroid",
     "path": "./res/asteroid.png",
     "path_alt": null,
-    "confidence": 0.9
+    "confidence": 0.99,
+    "grayscale": false
   },
   "station": {
     "name": "station",
     "path": "./res/station.png",
     "path_alt": null,
-    "confidence": 0.9
+    "confidence": 0.9,
+    "grayscale": false
   },
   "dock": {
     "name": "dock",
     "path": "./res/dock.png",
     "path_alt": null,
-    "confidence": 0.9
+    "confidence": 0.9,
+    "grayscale": false
   },
   "corp_chat": {
     "name": "corp_chat",
     "path": "./res/corp_chat.png",
     "path_alt": null,
-    "confidence": 0.9
+    "confidence": 0.9,
+    "grayscale": false
+  },
+  "edit_location": {
+    "name": "edit_location",
+    "path": "./res/edit_location.png",
+    "path_alt": null,
+    "confidence": 0.9,
+    "grayscale": false
+  },
+  "dialog_edit_location": {
+    "name": "dialog_edit_location",
+    "path": "./res/dialog_edit_location.png",
+    "path_alt": null,
+    "confidence": 0.9,
+    "grayscale": false
+  },
+  "dialog_overview_mining": {
+    "name": "dialog_overview_mining",
+    "path": "./res/dialog_overview_mining.png",
+    "path_alt": null,
+    "confidence": 0.9,
+    "grayscale": false
+  },
+  "dialog_people_places": {
+    "name": "dialog_people_places",
+    "path": "./res/dialog_people_places.png",
+    "path_alt": null,
+    "confidence": 0.9,
+    "grayscale": false
+  },
+  "dialog_inventory": {
+    "name": "dialog_inventory",
+    "path": "./res/dialog_inventory.png",
+    "path_alt": null,
+    "confidence": 0.9,
+    "grayscale": false
+  },
+  "dialog_drones": {
+    "name": "dialog_drones",
+    "path": "./res/dialog_drones.png",
+    "path_alt": null,
+    "confidence": 0.9,
+    "grayscale": false
+  },
+  "refinery": {
+    "name": "refinery",
+    "path": "./res/refinery.png",
+    "path_alt": null,
+    "confidence": 0.9,
+    "grayscale": false
+  },
+  "save_location": {
+    "name": "save_location",
+    "path": "./res/save_location.png",
+    "path_alt": null,
+    "confidence": 0.99,
+    "grayscale": false
+  },
+  "fram_mining_online": {
+    "name": "fram_mining_online",
+    "path": "./res/fram_mining_online.png",
+    "path_alt": null,
+    "confidence": 0.9,
+    "grayscale": false
+  },
+  "in_3_hours": {
+    "name": "in_3_hours",
+    "path": "./res/in_3_hours.png",
+    "path_alt": null,
+    "confidence": 0.9,
+    "grayscale": false
+  },
+  "submit": {
+    "name": "submit",
+    "path": "./res/submit.png",
+    "path_alt": null,
+    "confidence": 0.9,
+    "grayscale": false
+  },
+  "folder": {
+    "name": "folder",
+    "path": "./res/folder.png",
+    "path_alt": null,
+    "confidence": 0.9,
+    "grayscale": false
+  },
+  "remove_location": {
+    "name": "remove_location",
+    "path": "./res/remove_location.png",
+    "path_alt": null,
+    "confidence": 0.9,
+    "grayscale": false
+  },
+  "asteroid_save": {
+    "name": "asteroid_save",
+    "path": "./res/asteroid_save.png",
+    "path_alt": null,
+    "confidence": 0.9,
+    "grayscale": false
+  },
+  "menu": {
+    "name": "menu",
+    "path": "./res/menu.png",
+    "path_alt": null,
+    "confidence": 0.9,
+    "grayscale": false
+  },
+  "ship": {
+    "name": "ship",
+    "path": "./res/ship.png",
+    "path_alt": null,
+    "confidence": 0.99,
+    "grayscale": false
+  },
+  "ship_hangar": {
+    "name": "ship_hangar",
+    "path": "./res/ship_hangar.png",
+    "path_alt": null,
+    "confidence": 0.9,
+    "grayscale": false
+  },
+  "shared_locations": {
+    "name": "shared_locations",
+    "path": "./res/shared_locations.png",
+    "path_alt": null,
+    "confidence": 0.9,
+    "grayscale": false
+  },
+  "mining_folder": {
+    "name": "mining_folder",
+    "path": "./res/mining_folder.png",
+    "path_alt": null,
+    "confidence": 0.9,
+    "grayscale": false
+  },
+  "dialog_edit_location": {
+    "name": "dialog_edit_location",
+    "path": "./res/dialog_edit_location.png",
+    "path_alt": null,
+    "confidence": 0.9,
+    "grayscale": false
+  },
+  "drones_in_space_open": {
+    "name": "drones_in_space_open",
+    "path": "./res/drones_in_space_open.png",
+    "path_alt": null,
+    "confidence": 0.99,
+    "grayscale": false
+  },
+  "yes": {
+    "name": "yes",
+    "path": "./res/yes.png",
+    "path_alt": null,
+    "confidence": 0.99,
+    "grayscale": false
   }
 }
