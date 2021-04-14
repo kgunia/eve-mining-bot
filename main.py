@@ -175,6 +175,7 @@ class Pilot(object):
         print(f'{round(time,2)}, location: {self.location_type}/{self.location}, '
               f'interface[inside:{self.game.interface.inside}, outside:{self.game.interface.outside}]'
               f'cargo_full:{self.ship.cargo_full}, drones_in_space:{self.ship.drones_in_space}'
+              f'asteroid_save:{self.asteroid_save}'
               )
 
     def run(self):
@@ -205,7 +206,8 @@ class Pilot(object):
 
                                         if self.locate('asteroid'):
                                             self.hotkey('alt', 'e')
-                                            self.asteroid_save = self.save_location()
+                                            self.save_location()
+                                            self.asteroid_save = True
                                             self.hotkey('alt', 'e')
 
                                         if self.dock_to_station():
@@ -360,8 +362,9 @@ class Pilot(object):
                                 asteroid_belt.name = self.get_asteroid_belt_name(asteroid_belt)
 
 
-
-                        self.asteroid_save = False if self.remove_location() else True
+                        if self.locate('asteroid_save'):
+                            self.remove_location()
+                            self.asteroid_save
 
                         return True
                     else:
