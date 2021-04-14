@@ -205,7 +205,7 @@ class Pilot(object):
 
                                         if self.locate('asteroid'):
                                             self.hotkey('alt', 'e')
-                                            self.save_location()
+                                            self.asteroid_save = self.save_location()
                                             self.hotkey('alt', 'e')
 
                                         if self.dock_to_station():
@@ -215,7 +215,8 @@ class Pilot(object):
                                             self.move(500,0)
                                             self.click()
                                     elif self.location == 'asteroid_belt':
-                                        self.remove_location()
+
+                                        self.asteroid_save = False if self.remove_location() else True
                                         if self.locate('miner'):
                                             instance = self.locate_all('miner')
                                             counter = 0
@@ -358,7 +359,9 @@ class Pilot(object):
                             for asteroid_belt in self.asteroid_belts:
                                 asteroid_belt.name = self.get_asteroid_belt_name(asteroid_belt)
 
-                        self.remove_location()
+
+
+                        self.asteroid_save = False if self.remove_location() else True
 
                         return True
                     else:
