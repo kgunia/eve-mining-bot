@@ -16,9 +16,10 @@ ASTEROID_BELT_NAME = False
 
 # Set pause after pyautogui action
 pyautogui.PAUSE=0.1
+pyautogui.FAILSAFE = False
 
 # Initialize logging
-logging.basicConfig(format=LOG_MESSAGE_FORMAT, datefmt=LOG_DATE_FORMAT, level=logging.DEBUG)
+logging.basicConfig(format=LOG_MESSAGE_FORMAT, datefmt=LOG_DATE_FORMAT, level=logging.WARNING)
 
 # Load resources
 with open('resources.json') as file:
@@ -174,7 +175,7 @@ class Pilot(object):
     def status(self, time):
         print(f'{round(time,2)}, location: {self.location_type}/{self.location}, '
               f'interface[inside:{self.game.interface.inside}, outside:{self.game.interface.outside}]'
-              f'cargo_full:{self.ship.cargo_full}, drones_in_space:{self.ship.drones_in_space}'
+              f'cargo_full:{self.ship.cargo_full}, drones_in_space:{self.ship.drones_in_space}, '
               f'asteroid_save:{self.asteroid_save}'
               )
 
@@ -217,34 +218,35 @@ class Pilot(object):
                                             self.move(500,0)
                                             self.click()
                                     elif self.location == 'asteroid_belt':
+                                        if self.asteroid_save:
+                                            self.remove_location()
 
-                                        self.asteroid_save = False if self.remove_location() else True
+
+
                                         if self.locate('miner'):
                                             instance = self.locate_all('miner')
                                             counter = 0
                                             for object in instance:
                                                 counter += 1
-                                            print(f'miners:{counter}')
+
                                             if counter < 2:
                                                 self.press('f1')
 
-                                            if not self.ship.drones_in_space:
-                                                self.move(500,0)
-                                                self.click()
-                                                self.hotkey('shift','f')
-                                                self.ship.drones_in_space = True
-
                                             self.ship.cargo_full = self.check_cargo()
+
                                         else:
                                             asteroid = self.locate('asteroid')
                                             if asteroid:
-                                                print('znalazłem')
+
+                                                if not self.ship.drones_in_space:
+                                                    self.move(500, 0)
+                                                    self.click()
+                                                    self.hotkey('shift', 'f')
+                                                    self.ship.drones_in_space = True
+
                                                 if not self.ship.afterburner:
                                                     self.hotkey('alt','f1')
                                                     self.ship.afterburner = True
-                                                if not self.ship.drones_in_space:
-                                                    self.hotkey('shift','f')
-
 
                                                 pyautogui.press('f1')
                                                 time.sleep(0.5)
