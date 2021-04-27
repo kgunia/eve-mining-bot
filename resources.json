@@ -341,5 +341,19 @@
     "path_alt": null,
     "confidence": 0.99,
     "grayscale": false
+  },
+  "approaching": {
+    "name": "approaching",
+    "path": "./res/approaching.png",
+    "path_alt": null,
+    "confidence": 0.90,
+    "grayscale": false
+  },
+  "keeping_at_range": {
+    "name": "keeping_at_range",
+    "path": "./res/keeping_at_range.png",
+    "path_alt": null,
+    "confidence": 0.90,
+    "grayscale": false
   }
 }

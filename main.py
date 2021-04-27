@@ -200,6 +200,7 @@ class Pilot(object):
                         elif self.location_type == 'outside':
                             if self.game.interface.outside:
                                 if self.location != 'warp':
+                                    self.find_and_click('overview')
                                     if self.ship.cargo_full:
                                         if self.ship.drones_in_space:
                                             self.hotkey('shift','r')
@@ -217,13 +218,12 @@ class Pilot(object):
                                         else:
                                             self.move(500,0)
                                             self.click()
+
                                     elif self.location == 'asteroid_belt':
-                                        if self.asteroid_save:
-                                            self.remove_location()
-
-
 
                                         if self.locate('miner'):
+
+
                                             instance = self.locate_all('miner')
                                             counter = 0
                                             for object in instance:
@@ -231,16 +231,23 @@ class Pilot(object):
 
                                             if counter < 2:
                                                 self.press('f1')
+                                            
+                                            if self.locate('keeping_at_range'):
+                                                self.hotkey('ctrl','space')
+
+                                            if self.asteroid_save:
+                                                self.remove_location()
+                                                self.asteroid_save = False
 
                                             self.ship.cargo_full = self.check_cargo()
 
                                         else:
                                             asteroid = self.locate('asteroid')
+
                                             if asteroid:
 
                                                 if not self.ship.drones_in_space:
-                                                    self.move(500, 0)
-                                                    self.click()
+
                                                     self.hotkey('shift', 'f')
                                                     self.ship.drones_in_space = True
 
@@ -251,19 +258,26 @@ class Pilot(object):
                                                 pyautogui.press('f1')
                                                 time.sleep(0.5)
                                                 pyautogui.press('f2')
-                                                pyautogui.keyDown('q')
+                                                pyautogui.keyDown('e')
                                                 self.find_and_click('asteroid')
-                                                pyautogui.keyUp('q')
+                                                pyautogui.keyUp('e')
                                                 time.sleep(2)
                                                 self.move(0,-50)
                                             else:
                                                 if self.asteroid_belt:
                                                     self.asteroid_belt.empty = True
-                                                self.warp_to_asteroid_belt()
+
+                                                if self.ship.drones_in_space:
+                                                    self.hotkey('shift', 'r')
+                                                    self.ship.drones_in_space = False
+                                                else:
+                                                    self.warp_to_asteroid_belt()
+
                                         pass # TODO asteroid belt logic:
                                     elif self.location == 'space':
                                         if self.asteroid_save:
                                             self.find_and_click('asteroid_save','right')
+                                            self.asteroid_save = True
                                             self.find_and_click('warp_to_zero')
                                         else:
                                             self.warp_to_asteroid_belt()
@@ -535,6 +549,7 @@ class Pilot(object):
                 self.click('right')
                 if self.find_and_click('warp_to_zero'):
                     self.asteroid_belt = asteroid_belt
+                    self.find_and_click('overview')
                     time.sleep(10)
                     return True
                     break
